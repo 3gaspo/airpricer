@@ -1,25 +1,39 @@
-AirPricer
-AirPricer is a fully responsive market intelligence companion designed to help short-term rental hosts and real estate managers track, analyze, and optimize their property pricing relative to local competitors.
-Core Features
-📍 Location & Address Management
-Target Radii Mapping: Save core reference properties with specific geographic addresses and custom tracking radii (e.g., 5 km) to define the local comparison market boundaries.
-Dynamic Directory: Easily create, edit, or remove target properties. Deleting an address gracefully and cleanly unlinks associated competitor data.
-🏠 Competitor Listing Database
-Detailed Listings Tracking: Record direct competitors near each of your reference locations with precision attributes: price, capacity (beds), size (surface area in 
-), platform origin (Airbnb, Booking.com, Vrbo, etc.), and exact distance.
-Short Comments & Notes: Add rich, concise annotations (up to 150 characters) to capture nuanced advantages or drawbacks of competitor listings.
-Flexible Amenities Classification: Tag competitors with key convenience items (e.g., Air Conditioning, Heating, TV, Breakfast, Soap, and complimentary cleaning services) to understand value differences.
-🛠️ Custom Amenities Engine
-Backfilled Defaults: Instantly populates listings with essential standard amenities out-of-the-box.
-Custom Labels: Create and append personalized amenities parameters from the settings pane to tailor comparison categories specifically to your local niche.
-📊 Statistical Visualizations & Smart Advice
-Comparative Charts: Beautiful interactive data representations using high-performance charting libraries to dissect price ranges, platform distributions, size ratios, and average price per square meter.
-Positioning Recommendations: Algorithmic market guidance calculating average price indicators and recommending premium, median, or budget positioning rates based on live amenity match density.
-💾 Cloud Synchronization & Exports
-Durable Cloud Sync: Backed by secure cloud infrastructure (with optional Firebase Auth integration) to allow secure logins and cross-device synchronization.
-Local-First Resiliency: Graceful offline fallback using browser local storage to guarantee seamless, non-blocking page operations.
-Data Portability: Instantly export your listings, addresses, and custom variables into clean, formatted CSV spreadsheets directly from your dashboard.
-Design & Aesthetics
-Refined Minimalist Layout: Constructed using generous negative space, soft off-white surfaces, and rich neutral-slate tones that emphasize readability.
-Immersive Dialog System: Replaces standard browser popup dialogs with beautiful custom-built modals, offering smooth transitions, responsive action buttons, and clear text input flows.
-Mobile-First Precision: Tap-optimized elements, high-contrast typography pairings (Inter display headings), and persistent action menus ensure a highly polished experience on smartphones, tablets, and desktop displays.
+# AirPricer
+
+AirPricer is a full-featured, visually polished rental pricing analysis and competitor tracking application. It helps hosts, property managers, and real estate investors analyze lodging competitors within custom geographical radiuses, manage local amenities, and track price positioning.
+
+---
+
+## Key Features
+
+### 📍 Location & Radius Management
+- Create and edit custom target locations with full addresses.
+- Define custom comparison radiuses (in kilometers) to restrict competitor analyses.
+- Interactive status indicators and quick actions to manage active locations.
+
+### 🏠 Competitor Listings Tracker
+- Log, edit, and track competitors inside your target location's radius.
+- Track crucial pricing metrics, bedroom counts, platforms (e.g., Airbnb, Booking.com, VRBO, or custom platforms), and specific amenities.
+- Dynamic search, filters, and sorting controls for competitor lists.
+
+### 📊 Statistical Analytics
+- Visual distribution charts comparing price per bedroom and overall pricing curves.
+- Instant pricing metrics: average price, median price, high/low ranges, and bed-count distribution.
+- Strategic position recommendations based on local market clusters.
+
+### ⚙️ Customizable Amenities
+- Create custom property amenity tags to align tracker metrics with specific markets (e.g., "Hot Tub", "EV Charger", "Sea View").
+- Toggle and filter competitor sets based on these amenity requirements.
+
+### 🔐 Secure Authentication & Storage
+- Integrates with modern client-side and secure cloud-synced persistence.
+- Safe local backup mechanisms with comprehensive "Clear History" and "Factory Reset" safety-valve confirmations.
+
+---
+
+## Tech Stack & Styling
+
+- **Frontend:** React 18+ with Vite and TypeScript.
+- **Styling:** Fully responsive Tailwind CSS utilizing elegant layouts, soft off-whites, and deep charcoal grays.
+- **Components:** High-contrast modals and custom dialog wrappers ensuring smooth user flow.
+- **Icons:** Powered by `lucide-react` for a clean, cohesive visual language.
