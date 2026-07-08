@@ -1,0 +1,8 @@
+{
+  "name": "AirPricer",
+  "description": "A elegant price-intelligence application for Airbnb hosts to analyze and price their properties against competitors.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
