@@ -70,6 +70,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const signIn = async (email: string, pass: string) => {
     setError(null);
+    const cleanEmail = email.trim().toLowerCase();
     if (!isDevMode && auth) {
       try {
         await fbSignIn(auth, email, pass);
@@ -79,29 +80,37 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         throw new Error(msg);
       }
     } else {
-      // Local dev check
+      // Local dev check - accept ANY credentials in Dev mode!
+      const finalEmail = email.trim() || "gberthelier.projet@gmail.com";
+      const finalPass = pass || "password";
+      
       const localUsersStr = localStorage.getItem("airpricer_local_users") || "[]";
-      const users = JSON.parse(localUsersStr);
-      const found = users.find((u: any) => u.email === email && u.password === pass);
-      if (found) {
-        const uProfile = { uid: found.uid, email: found.email };
-        localStorage.setItem("airpricer_active_user", JSON.stringify(uProfile));
-        setUser(uProfile);
-      } else if (email === "gberthelier.projet@gmail.com" && pass === "password") {
-        // Fallback standard dev credentials
-        const uProfile = { uid: "dev-user-id", email: "gberthelier.projet@gmail.com" };
-        localStorage.setItem("airpricer_active_user", JSON.stringify(uProfile));
-        setUser(uProfile);
-      } else {
-        const msg = "Invalid email or password in Dev mode (try gberthelier.projet@gmail.com / password)";
-        setError(msg);
-        throw new Error(msg);
+      let users = [];
+      try {
+        users = JSON.parse(localUsersStr);
+        if (!Array.isArray(users)) users = [];
+      } catch {
+        users = [];
       }
+      
+      let found = users.find((u: any) => u && typeof u.email === "string" && u.email.trim().toLowerCase() === finalEmail.toLowerCase());
+      if (!found) {
+        // If the user doesn't exist, create them dynamically on the fly
+        const newUid = "dev-user-" + Math.random().toString(36).substr(2, 9);
+        found = { uid: newUid, email: finalEmail, password: finalPass };
+        users.push(found);
+        localStorage.setItem("airpricer_local_users", JSON.stringify(users));
+      }
+      
+      const uProfile = { uid: found.uid, email: found.email };
+      localStorage.setItem("airpricer_active_user", JSON.stringify(uProfile));
+      setUser(uProfile);
     }
   };
 
   const signUp = async (email: string, pass: string) => {
     setError(null);
+    const cleanEmail = email.trim().toLowerCase();
     if (!isDevMode && auth) {
       try {
         await fbSignUp(auth, email, pass);
@@ -113,18 +122,25 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     } else {
       // Local dev signup
       const localUsersStr = localStorage.getItem("airpricer_local_users") || "[]";
-      const users = JSON.parse(localUsersStr);
-      if (users.some((u: any) => u.email === email)) {
+      let users = [];
+      try {
+        users = JSON.parse(localUsersStr);
+        if (!Array.isArray(users)) users = [];
+      } catch {
+        users = [];
+      }
+      
+      if (users.some((u: any) => u && typeof u.email === "string" && u.email.trim().toLowerCase() === cleanEmail)) {
         const msg = "Email already in use";
         setError(msg);
         throw new Error(msg);
       }
       const newUid = "dev-user-" + Math.random().toString(36).substr(2, 9);
-      const newUser = { uid: newUid, email, password: pass };
+      const newUser = { uid: newUid, email: email.trim(), password: pass };
       users.push(newUser);
       localStorage.setItem("airpricer_local_users", JSON.stringify(users));
       
-      const uProfile = { uid: newUid, email };
+      const uProfile = { uid: newUid, email: email.trim() };
       localStorage.setItem("airpricer_active_user", JSON.stringify(uProfile));
       setUser(uProfile);
     }
